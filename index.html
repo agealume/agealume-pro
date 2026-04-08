@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AGEALume – Ecossistema Digital Angola</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="images/image_1.jpeg" alt="AGEALume Logo" class="main-logo">
+        </div>
+        <h1 class="glitch-text" data-text="AGEALUME">AGEALUME</h1>
+        <p class="tagline">Onde o Conhecimento se Torna Ouro</p>
+    </header>
+
+    <nav class="filter-nav">
+        <button class="filter-btn active" onclick="renderBooks('todos')">Todos</button>
+        <button class="filter-btn" onclick="renderBooks('academico')">Académico</button>
+        <button class="filter-btn" onclick="renderBooks('negocios')">Negócios</button>
+        <button class="filter-btn" onclick="renderBooks('direito')">Direito</button>
+    </nav>
+
+    <main id="book-grid" class="book-grid">
+        </main>
+
+    <div class="admin-zone">
+        <button class="action-btn" onclick="togglePublishForm()">Publicar Novo Livro</button>
+        <div id="publish-form" class="publish-form">
+            <input type="text" id="pub-titulo" placeholder="Título do Livro">
+            <select id="pub-cat">
+                <option value="academico">Académico</option>
+                <option value="negocios">Negócios</option>
+                <option value="direito">Direito</option>
+            </select>
+            <input type="number" id="pub-preco" placeholder="Preço (Kz)">
+            <input type="text" id="pub-link" placeholder="Link do PDF (Opcional)">
+            <button class="submit-btn" onclick="publicarLivro()">Confirmar Publicação</button>
+        </div>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
