@@ -3,49 +3,164 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AGEALume – Ecossistema Digital Angola</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<title>AGEALume – Ecossistema Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Bebas+Neue&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════
+   ESTILO NOIR & GOLD (A Maquiagem)
+═══════════════════════════════════════════ */
+:root {
+  --noir: #0a0a0a;
+  --noir-mid: #111111;
+  --noir-card: #161616;
+  --noir-border: #1e1e1e;
+  --gold: #c9a84c;
+  --gold-bright: #f0c060;
+  --ivory: #f5f0e8;
+  --font-display: 'Bebas Neue', sans-serif;
+}
+
+body {
+  background-color: var(--noir);
+  color: var(--ivory);
+  font-family: 'DM Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+header {
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(to bottom, var(--noir-mid), var(--noir));
+  border-bottom: 1px solid var(--noir-border);
+}
+
+.logo-container img {
+  max-width: 120px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 5rem;
+  color: var(--gold);
+  margin: 0;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+.tagline {
+  font-size: 1.2rem;
+  color: var(--gold);
+  opacity: 0.8;
+  letter-spacing: 2px;
+}
+
+/* GRID DOS LIVROS */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.book-card {
+  background: var(--noir-card);
+  border: 1px solid var(--noir-border);
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  transition: 0.4s;
+}
+
+.book-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-10px);
+}
+
+.book-emoji { font-size: 3rem; margin-bottom: 15px; }
+
+.price {
+  font-size: 1.5rem;
+  color: var(--gold);
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.buy-btn {
+  background: var(--gold);
+  color: var(--noir);
+  border: none;
+  padding: 15px;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.buy-btn:hover { background: var(--gold-bright); }
+
+@media (max-width: 768px) {
+  h1 { font-size: 3rem; }
+}
+</style>
 </head>
+
 <body>
 
-<div id="app">
-    <header class="main-header">
-        <div class="logo-container">
-            <img src="images/image_1.jpeg" alt="AGEALume Logo" class="main-logo">
-        </div>
-        <h1 class="glitch-text" data-text="AGEALUME">AGEALUME</h1>
-        <p class="tagline">Onde o Conhecimento se Torna Ouro</p>
-    </header>
-
-    <nav class="filter-nav">
-        <button class="filter-btn active" onclick="renderBooks('todos')">Todos</button>
-        <button class="filter-btn" onclick="renderBooks('academico')">Académico</button>
-        <button class="filter-btn" onclick="renderBooks('negocios')">Negócios</button>
-        <button class="filter-btn" onclick="renderBooks('direito')">Direito</button>
-    </nav>
-
-    <main id="book-grid" class="book-grid">
-        </main>
-
-    <div class="admin-zone">
-        <button class="action-btn" onclick="togglePublishForm()">Publicar Novo Livro</button>
-        <div id="publish-form" class="publish-form">
-            <input type="text" id="pub-titulo" placeholder="Título do Livro">
-            <select id="pub-cat">
-                <option value="academico">Académico</option>
-                <option value="negocios">Negócios</option>
-                <option value="direito">Direito</option>
-            </select>
-            <input type="number" id="pub-preco" placeholder="Preço (Kz)">
-            <input type="text" id="pub-link" placeholder="Link do PDF (Opcional)">
-            <button class="submit-btn" onclick="publicarLivro()">Confirmar Publicação</button>
-        </div>
+<header>
+    <div class="logo-container">
+        <img src="images/image_1.jpeg" alt="Logo">
     </div>
-</div>
+    <h1>AGEALUME</h1>
+    <p class="tagline">Onde o Conhecimento se Torna Ouro</p>
+</header>
 
-<div id="toast" class="toast"></div>
+<main id="book-grid" class="book-grid">
+    </main>
 
-<script src="script.js"></script>
+<script>
+/* ═══════════════════════════════════════════
+   LÓGICA DO MARKETPLACE (A Inteligência)
+═══════════════════════════════════════════ */
+const state = {
+  books: [
+    { id: 1, titulo: "Manual de Caligrafia", preco: 2500, emoji: "✍️" },
+    { id: 2, titulo: "Estratégias de Venda", preco: 5000, emoji: "💰" },
+    { id: 3, titulo: "Psicologia do Consumidor", preco: 3500, emoji: "🧠" }
+  ]
+};
+
+function renderBooks() {
+  const grid = document.getElementById('book-grid');
+  grid.innerHTML = '';
+  
+  state.books.forEach(book => {
+    grid.innerHTML += `
+      <div class="book-card">
+        <div class="book-emoji">${book.emoji}</div>
+        <h3>${book.titulo}</h3>
+        <p class="price">${book.preco.toLocaleString()} Kz</p>
+        <button class="buy-btn" onclick="comprar('${book.titulo}')">Adquirir Agora</button>
+      </div>
+    `;
+  });
+}
+
+function comprar(nome) {
+  alert(`Iniciando pedido de: ${nome}\nRedirecionando para o checkout...`);
+}
+
+// Inicia o site assim que carrega
+window.onload = renderBooks;
+</script>
+
 </body>
 </html>
